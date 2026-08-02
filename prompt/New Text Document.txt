@@ -1,0 +1,359 @@
+PROJECT TITLE:
+
+StudyLink: Centralized Learning Management System with AI-Infused Assessment and Activity Generation
+
+TECH STACK:
+
+* PHP Native (Procedural)
+* MySQL
+* mysqli
+* HTML/CSS/JavaScript
+* Bootstrap later
+* XAMPP
+
+DATABASE:
+studylink_db
+
+CODING STYLE:
+
+* Use procedural PHP only
+* Use mysqli_query
+* Use include for config and auth
+* Functionality first
+* Bootstrap/UI later
+* Keep code modular
+* Step-by-step development only
+* Keep responses concise and specific to avoid chat lag
+
+=================================================
+
+CURRENT FOLDER STRUCTURE
+
+studyLink/
+
+index.php
+
+config/
+└── database.php
+
+auth/
+├── auth.php
+├── login_process.php
+└── logout.php
+
+assets/
+├── css/
+│   ├── admin.css
+│   ├── faculty.css
+│   └── student.css
+│
+├── js/
+│   ├── admin.js
+│   ├── faculty.js
+│   └── student.js
+│
+└── uploads/
+├── materials/
+├── assignments/
+└── profile/
+
+admin/
+├── index.php
+├── dashboard.php
+├── academic_year/
+├── semesters/
+├── sections/
+├── subjects/
+├── faculty/
+├── students/
+└── class_assignments/
+
+faculty/
+├── index.php
+├── dashboard.php
+├── classes.php
+├── class_view.php
+│
+├── tabs/
+│   ├── students.php
+│   ├── materials.php
+│   ├── assignments.php
+│   ├── quizzes.php
+│   ├── attendance.php
+│   └── ai_generator.php
+│
+├── materials/
+│   ├── index.php
+│   ├── upload.php
+│   └── delete.php
+│
+├── assignments/
+│   ├── index.php
+│   ├── create.php
+│   ├── submissions.php
+│   └── delete.php
+│
+├── quizzes/
+│   ├── index.php
+│   ├── create.php
+│   ├── questions.php
+│   └── delete.php
+│
+├── attendance/
+│   ├── index.php
+│   └── mark.php
+│
+└── ai/
+├── quiz_generator.php
+└── save_generated.php
+
+student/
+├── index.php
+└── dashboard.php (not yet created)
+└── classes.php (not yet created)
+
+includes/
+├── admin_sidebar.php
+├── faculty_sidebar.php
+├── student_sidebar.php
+├── header.php
+└── footer.php
+
+=================================================
+
+LOGIN SYSTEM
+
+Three separate portals:
+
+admin/index.php
+faculty/index.php
+student/index.php
+
+Only ONE users table.
+
+users columns:
+
+id
+fullname
+username
+password
+role
+status
+created_at
+
+Roles:
+
+admin
+faculty
+student
+
+Each login form sends:
+
+portal=admin
+portal=faculty
+portal=student
+
+login_process.php validates role == portal
+
+Redirects:
+
+admin -> admin/dashboard.php
+faculty -> faculty/dashboard.php
+student -> student/dashboard.php
+
+=================================================
+
+auth/auth.php
+
+<?php
+
+if(session_status() == PHP_SESSION_NONE){
+    session_start();
+}
+
+if(!isset($_SESSION['user_id'])){
+    header("Location: ../index.php");
+    exit();
+}
+?>
+
+=================================================
+
+DATABASE TABLES
+
+users
+academic_years
+semesters
+sections
+subjects
+faculty
+students
+class_assignments
+
+NEW TABLE ADDED:
+
+learning_materials
+
+Columns:
+
+id
+class_assignment_id
+title
+description
+file_name
+created_at
+
+Foreign Key:
+
+class_assignment_id references class_assignments(id)
+
+=================================================
+
+IMPORTANT LMS RULE
+
+One class assignment equals:
+
+ONE Faculty
+ONE Subject
+ONE Section
+ONE Academic Year
+ONE Semester
+
+Never store multiple subjects in one row.
+
+=================================================
+
+STUDENT RULE
+
+Students do NOT join manually.
+
+Student belongs to class automatically:
+
+# students.section_id
+
+class_assignments.section_id
+
+=================================================
+
+COMPLETED ADMIN MODULES
+
+Academic Year
+Semester
+Sections
+Subjects
+Faculty
+Students
+Class Assignments
+
+=================================================
+
+CURRENT FACULTY MODULE STATUS
+
+dashboard.php
+classes.php
+class_view.php
+
+class_view.php is LMS hub.
+
+Tabs:
+
+Students
+Materials
+Assignments
+Quizzes
+Attendance
+AI Generator
+
+=================================================
+
+COMPLETED FACULTY LMS FEATURES
+
+1. class_view.php working
+
+* class header
+* tab navigation
+* secure class validation
+
+Security check passed:
+
+Faculty cannot access another faculty class by changing URL.
+
+2. Students Module working
+
+faculty/tabs/students.php
+
+Lists students automatically by section:
+
+# students.section_id
+
+class_assignments.section_id
+
+3. Learning Materials Module PARTIALLY COMPLETE
+
+Completed:
+
+* learning_materials table
+* materials tab form
+* upload form working
+* file upload working
+* database insert working
+* file saved to assets/uploads/materials/
+* uploaded materials displayed
+* View File working
+
+Important upload path solution:
+
+Use absolute path via:
+
+$upload_dir = dirname(**DIR**, 2) . "/assets/uploads/materials/";
+$upload_path = $upload_dir . $file_name;
+
+Avoid fragile ../../ paths.
+
+=================================================
+
+ROOT index.php
+
+No generic login form anymore.
+
+Current content:
+
+<h2>StudyLink LMS</h2>
+
+<p>Select Portal</p>
+
+<a href="admin/">Admin Portal</a><br><br> <a href="faculty/">Faculty Portal</a><br><br> <a href="student/">Student Portal</a>
+
+=================================================
+
+IMPORTANT DEVELOPMENT RULES
+
+* Continue from current progress
+* Do NOT restart architecture
+* Preserve current folder structure
+* No frameworks
+* Use mysqli_query only
+* Build one module at a time
+* Wait for confirmation before next step
+* Keep replies concise
+* If asking for code from existing files, specify exact filename
+
+=================================================
+
+CURRENT STOPPING POINT
+
+We JUST finished Learning Materials upload and viewing.
+
+NEXT TASK:
+
+Complete Learning Materials Module by implementing:
+
+faculty/materials/delete.php
+
+and update:
+
+faculty/tabs/materials.php
+
+to add Delete action.
+
+After Materials module is complete, proceed to Assignments Module.

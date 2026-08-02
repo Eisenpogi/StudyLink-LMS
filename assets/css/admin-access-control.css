@@ -1,0 +1,132 @@
+.admin-access-card {
+    margin-top: 24px;
+    scroll-margin-top: 96px;
+}
+
+.admin-access-layout {
+    display: grid;
+    grid-template-columns: minmax(280px, 0.9fr) minmax(340px, 1.1fr);
+    gap: 26px;
+    align-items: stretch;
+}
+
+.admin-login-preview {
+    position: relative;
+    min-height: 260px;
+    overflow: hidden;
+    background: #061f49;
+    border: 1px solid #d9e0ec;
+    border-radius: 14px;
+}
+
+.admin-login-preview img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+}
+
+.admin-login-preview span {
+    position: absolute;
+    right: 14px;
+    bottom: 14px;
+    padding: 7px 10px;
+    color: #fff;
+    background: rgba(3, 22, 49, 0.76);
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.admin-access-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.admin-access-form h3 {
+    margin: 0 0 8px;
+    color: #10223a;
+    font-size: 18px;
+}
+
+.admin-access-form > p {
+    margin: 0 0 20px;
+    color: #657084;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.admin-file-field {
+    display: grid;
+    gap: 8px;
+}
+
+.admin-file-field span {
+    color: #344054;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.admin-file-field input {
+    width: 100%;
+    padding: 11px;
+    color: #475467;
+    background: #f8faff;
+    border: 1px solid #d7deea;
+    border-radius: 9px;
+}
+
+.admin-file-field small {
+    color: #7c8798;
+    font-size: 12px;
+}
+
+.admin-access-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 14px;
+}
+
+.admin-access-button {
+    min-height: 34px;
+    width: auto;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 0 11px;
+    color: #fff;
+    background: #061f49;
+    border: 1px solid #061f49;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.admin-access-button.secondary {
+    color: #9b1c1c;
+    background: #fff;
+    border-color: #f0b7b7;
+}
+
+.admin-access-button svg {
+    width: 14px;
+    height: 14px;
+}
+
+.admin-access-button:not(.secondary) svg {
+    color: #fff;
+}
+
+@media (max-width: 820px) {
+    .admin-access-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .admin-login-preview {
+        min-height: 220px;
+    }
+}

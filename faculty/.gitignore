@@ -1,0 +1,14 @@
+# XAMPP uploads
+/uploads/
+
+# Environment files
+.env
+
+# Temporary files
+*.log
+
+# VS Code settings
+.vscode/
+
+# Database credentials
+config/database.php
